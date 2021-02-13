@@ -1,0 +1,21 @@
+body {
+  background-image: url("./../../images/bkg_01.jpg"); /* no-repeat center center fixed */
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed; 
+}
+
+.parent {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tarjeta {
+  background-color: white;
+  border-radius: 10px;
+  width: 380px;
+  height: 550px;
+}

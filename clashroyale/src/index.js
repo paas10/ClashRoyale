@@ -1,13 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import Login from './components/Login';
+import 'bootstrap/dist/css/bootstrap.css'
+import './index.css';
+import 'fontsource-roboto';
+import App from './App';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router>
+    <Switch>
+      <Route exact path="/" component={App}/>
+      <Route exact path="/login" component={Login}/>
+      {/* <Route exact path="/" component={Homepage}/> */}
+    </Switch>
+  </Router>,
+
+  // <React.StrictMode>
+  //   <App />
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 
