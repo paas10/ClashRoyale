@@ -1,12 +1,12 @@
 import React from "react";
-import "./styles/Login.css";
+import "./styles/ResetPassword.css";
 import corona from "./../images/corona.png";
 
-function Login() {
+function ResetPassword() {
   return (
     <div className="body">
       <div className="parent">
-        <div className="tarjetaLogin p-5">
+        <div className="tarjetaReset p-5">
           <div className="row">
             <div className="text-center col-12 ">
               <img src={corona} className="logoCard" />
@@ -15,15 +15,11 @@ function Login() {
           <div className="row mt-2">
             <div className="text-center col-12">
               <h3 className="mb-1">
-                <b>Iniciar Sesión</b>
+                <b>Recuperación<br />de Contraseña</b>
               </h3>
-              <span>¿No tienes cuenta? </span>
-              <a href="">
-                Registrate
-              </a>
             </div>
           </div>
-          <div className="row mt-4">
+          <div className="row mt-3">
             <div className="col-12">
               <span>Usuario</span>
             </div>
@@ -33,26 +29,16 @@ function Login() {
               <input className="form-control" type="text" />
             </div>
           </div>
-          <div className="row mt-2">
+          <div className="row">
             <div className="col-12">
-              <span>Contraseña</span>
-            </div>
-          </div>
-          <div className="row mt-1">
-            <div className="col-12">
-              <input className="form-control" type="text" />
+              <button className="btn btn-block">Iniciar Sesión</button>
             </div>
           </div>
           <div className="row mt-2">
             <div className="text-right col-12">
-              <a href="/reset">
-                ¿Olvidó la contraseña?
+              <a href="/login">
+                Iniciar Sesión
               </a>
-            </div>
-          </div>
-          <div className="row mt-2">
-            <div className="col-12">
-              <button className="btn btn-block">Iniciar Sesión</button>
             </div>
           </div>
         </div>
@@ -61,4 +47,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ResetPassword;
