@@ -11,9 +11,11 @@ import App from './App';
 ReactDOM.render(
   <Router>
     <Switch>
-      <Route exact path="/" component={App}/>
       <Route exact path="/login" component={Login}/>
-      {/* <Route exact path="/" component={Homepage}/> */}
+      <Route exact path="/reset" component={ResetPassword} />
+
+      <Route exact path="/home" component={App}/>
+      <Route render={() => <Redirect to={{ pathname: "/login" }}/>} />
     </Switch>
   </Router>,
 
