@@ -16,7 +16,7 @@ ReactDOM.render(
       <Route exact path="/reset" component={ResetPassword} />
 
       <Route exact path="/home" component={App}/>
-      <Route render={() => <Redirect to={{ pathname: "/login" }}/>} />
+      {/* <Route render={() => <Redirect to={{ pathname: "/login" }}/>} /> */}
     </Switch>
   </Router>,
 
