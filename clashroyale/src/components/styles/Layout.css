@@ -1,0 +1,19 @@
+.header, .rowHeader {
+  height: 5vh;
+}
+
+.header {
+  background-color: #dcdcdc;
+}
+
+.rowHeader {
+  align-items: center;
+}
+
+.SuperCellImg {
+  height: 30px;
+}
+
+.ClashRoyaleImg {
+  height: 45px;
+}

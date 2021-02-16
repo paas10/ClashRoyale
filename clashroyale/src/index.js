@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import reportWebVitals from './reportWebVitals';
 import Login from './components/Login';
 import ResetPassword from './components/ResetPassword';
+import Home from './components/Home';
+
 import 'bootstrap/dist/css/bootstrap.css'
 import './index.css';
 import 'fontsource-roboto';
-import App from './App';
 
 ReactDOM.render(
   <Router>
@@ -15,8 +16,8 @@ ReactDOM.render(
       <Route exact path="/login" component={Login}/>
       <Route exact path="/reset" component={ResetPassword} />
 
-      <Route exact path="/home" component={App}/>
-      {/* <Route render={() => <Redirect to={{ pathname: "/login" }}/>} /> */}
+      <Route exact path="/home" component={Home}/>
+      <Route render={() => <Redirect to={{ pathname: "/login" }}/>} />
     </Switch>
   </Router>,
 
