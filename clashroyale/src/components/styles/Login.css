@@ -37,3 +37,7 @@ button {
   background-color: #8A8045 !important;
   color: white !important;
 }
+
+.aLogIn:hover {
+  text-decoration: none !important;
+}

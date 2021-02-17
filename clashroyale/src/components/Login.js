@@ -52,7 +52,7 @@ function Login() {
           </div>
           <div className="row mt-2">
             <div className="col-12">
-              <button className="btn btn-block">Iniciar Sesión</button>
+              <a className="aLogIn" href="/home"><button className="btn btn-block">Iniciar Sesión</button></a>
             </div>
           </div>
         </div>
