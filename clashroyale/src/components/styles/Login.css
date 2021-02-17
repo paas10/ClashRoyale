@@ -32,7 +32,7 @@ span {
   font-size: 17px;
 }
 
-button {
+.btnlogin {
   margin-top: 30px !important;
   background-color: #8A8045 !important;
   color: white !important;

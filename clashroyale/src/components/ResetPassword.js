@@ -31,7 +31,7 @@ function ResetPassword() {
           </div>
           <div className="row">
             <div className="col-12">
-              <button className="btn btn-block">Recuperar Contraseña</button>
+              <button className="btn btn-block btnlogin">Recuperar Contraseña</button>
             </div>
           </div>
           <div className="row mt-2">
