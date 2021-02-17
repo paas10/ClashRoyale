@@ -17,3 +17,26 @@
 .ClashRoyaleImg {
   height: 45px;
 }
+
+.btnLogout {
+  text-align: right;
+}
+
+@media only screen and (max-width: 600px) {
+  .header, .rowHeader {
+    height: 50px;
+  }
+
+  .ClashRoyaleImg {
+    height: 75px;
+  }
+
+  .SuperCellImg {
+    margin-top: -25px;
+  }
+  
+  .btnLogout {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}

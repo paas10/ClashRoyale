@@ -17,9 +17,11 @@ class Layout extends Component {
               <img src={ClashRoyale} className="ClashRoyaleImg" />
             </div>
             <div className="text-right col-2">
-              <a href="/login">
-                <GrPowerShutdown />
-              </a>
+              <div className=" btnLogout">
+                <a href="/login">
+                  <GrPowerShutdown />
+                </a>
+              </div>
             </div>
           </div>
         </div>
