@@ -21,23 +21,35 @@ class Home extends Component {
   buildTableBody() {
     return cards.map(item => 
     <tr className="text-center" key={item.id}>
-      <td></td>
-      <td>{ item.nombre }</td>
-      <td>{ item.calidad }</td>
-      <td>{ item.tipoCarta }</td>
-      <td>{ item.vida }</td>
-      <td>{ item.danio }</td>
-      <td>{ item.velocidad }</td>
+      <td className="p-1">
+        <div className="foto">
+          { this.buildImage(item.img) }
+        </div>
+      </td>
+      <td className="tableRow">{ item.nombre }</td>
+      <td className="tableRow">{ item.calidad }</td>
+      <td className="tableRow">{ item.tipoCarta }</td>
+      <td className="tableRow">{ item.vida }</td>
+      <td className="tableRow">{ item.danio }</td>
+      <td className="tableRow">{ item.velocidad }</td>
       <td>
-        <button type="button" className="btn btn-outline-dark mr-1">
+        <button type="button" className="btn btn-outline-dark mr-1 mt-1">
           <BiPencil className="mb-1"/>
         </button>
-        <button type="button" className="btn btn-outline-danger">
+        <button type="button" className="btn btn-outline-danger mr-1 mt-1">
           <BiTrash className="mb-1"/>
         </button>
       </td>
     </tr>
     );
+  }
+
+  buildImage(imgSrc) {
+    if (imgSrc){
+      return <img className="imgIndex" src={imgSrc} alt="new" />
+    } else {
+      return;
+    }
   }
 
   render() {
