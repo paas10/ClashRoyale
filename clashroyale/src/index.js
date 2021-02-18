@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import Login from './components/Login';
 import ResetPassword from './components/ResetPassword';
 import Home from './components/Home';
+import Create from './components/Create';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './index.css';
@@ -17,6 +18,7 @@ ReactDOM.render(
       <Route exact path="/reset" component={ResetPassword} />
 
       <Route exact path="/home" component={Home}/>
+      <Route exact path="/create" component={Create}/>
       <Route render={() => <Redirect to={{ pathname: "/login" }}/>} />
     </Switch>
   </Router>,
