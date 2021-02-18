@@ -65,7 +65,7 @@ class Home extends Component {
             <span>Cartas disponibles en la plataforma</span>
           </div>
           <div className="text-right col-2">
-            <button type="button" className="btn btn-outline-success mt-3 mr-2">
+            <button type="button" className="btn btn-outline-success mt-3 mr-2" onClick={() => {window.location.href="/create"}}>
               <IoMdAdd className="icoAdd" />
               <span className="btnColor">Nuevo</span>
             </button>
@@ -91,7 +91,5 @@ class Home extends Component {
     );
   }
 }
-
-
 
 export default Home;

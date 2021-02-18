@@ -25,6 +25,10 @@ h3 {
   color: white !important;
 }
 
+.btn-outline-dark:hover .btnColor {
+  color: white !important;
+}
+
 .icoAdd {
   font-size: 20px;
   margin-bottom: 2px;
