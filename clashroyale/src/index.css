@@ -1,13 +1,190 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* BOTONES */
+.btnlogin {
+  margin-top: 30px !important;
+  background-color: #8A8045 !important;
+  color: white !important;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.btnLogout {
+  text-align: right;
+}
+
+.btn-outline-success {
+  color: #107200 !important;
+  border-color: #107200 !important;
+}
+
+.btnColor {
+  color: #3F3F3F !important;
+}
+
+.btn-outline-success:hover {
+  background-color: #107200 !important;
+  color: white !important;
+}
+
+.btn-outline-success:hover .btnColor {
+  color: white !important;
+}
+
+.btn-outline-dark:hover .btnColor {
+  color: white !important;
+}
+
+.btn-outline-primary {
+  color: #0014C3 !important;
+  border-color: #0014C3 !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #0014C3 !important;
+  color: white !important;
+}
+
+/* LOGIN Y RECUPERACIÓN DE CONTRASEÑA */
+.body {
+  background-image: url("./images/bkg_01.jpg"); /* no-repeat center center fixed */
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed; 
+}
+
+.parent {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tarjetaLogin {
+  background-color: white;
+  border-radius: 10px;
+  width: 380px;
+  height: 530px;
+}
+
+.logoCard {
+  width: 5rem;
+}
+
+a {
+  color: #0014C3 !important;
+}
+
+span {
+  font-size: 17px;
+}
+
+.aLogIn:hover {
+  text-decoration: none !important;
+}
+
+.tarjetaReset {
+  background-color: white;
+  border-radius: 10px;
+  width: 380px;
+  height: 450px;
+}
+
+/* LAYOUT */
+.header, .rowHeader {
+  height: 53px;
+}
+
+.header {
+  background-color: #dcdcdc;
+}
+
+.rowHeader {
+  align-items: center;
+}
+
+.SuperCellImg {
+  height: 30px;
+}
+
+.ClashRoyaleImg {
+  height: 55px;
+}
+
+.cuerpo {
+  width: 100vw;
+  height: 95vh;
+  padding: 4vh;
+  background-color: #F6F6F6;
+}
+
+@media only screen and (max-width: 600px) {
+  .header, .rowHeader {
+    height: 50px;
+  }
+
+  .ClashRoyaleImg {
+    height: 75px;
+  }
+
+  .SuperCellImg {
+    margin-top: -25px;
+  }
+  
+  .btnLogout {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+
+/* HOME (INDEX) */
+.rutas {
+  font-size: 16px;
+  color: gray;
+}
+
+h3 {
+  color: black;
+}
+
+.icoAdd {
+  font-size: 20px;
+  margin-bottom: 2px;
+  margin-right: 3px;
+}
+
+.bodyTable {
+  height: 87%;
+  margin-top: 30px;
+  padding: 35px 15px;
+
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px #d4d4d4;
+}
+
+.foto {
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  margin-top: 2px;
+}
+
+.tableRow {
+  padding-top: 18px !important;
+}
+
+.imgIndex {
+  max-height: 100%;
+}
+
+/* CREATE Y UPDATE */
+#placeImg {
+  display: none;
+  height: 150px;
+}
+
+#placeImgUpdate {
+  height: 150px;
+}
+
+.imgIndex {
+  max-height: 100%;
+  text-align: center;
 }
