@@ -26,7 +26,7 @@ Pablo Alvarado 1104017
   },
   {
     "id":3,
-    "img":"https://lh3.googleusercontent.com/proxy/yJnz0JEy-d22qpoTRwupbAg02QR3_SWPLHSmj5TDWK1u_TMR8MKaeQmKHbI07AKANVKZg5cqZDjPehuUQE7Y8lbBg6qgN_k8bnl5CPfjdqNtMJFXglt-fP5_",
+    "img":"https://i.pinimg.com/originals/d5/36/80/d53680705aaf35791407cf61cab41eb0.png",
     "nombre":"Valquiria",
     "calidad":"Especial",
     "tipoCarta":"Tropa",
