@@ -10,6 +10,7 @@ import Update from './components/Update';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './index.css';
+import 'sweetalert/dist/sweetalert.css';
 import 'fontsource-roboto';
 
 ReactDOM.render(

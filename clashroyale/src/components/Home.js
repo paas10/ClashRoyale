@@ -1,4 +1,5 @@
 import { React, Component } from "react";
+import SweetAlert from 'sweetalert-react';
 import Layout from "./Layout";
 import { IoMdAdd } from "react-icons/io";
 import { BiPencil, BiTrash } from "react-icons/bi";
@@ -8,9 +9,12 @@ var cards = [];
 
 class Home extends Component {
 
-  constructor() {
-    super();
+  constructor(props, context) {
+    super(props, context);
     cards = JSON.parse(localStorage.getItem("cards"));
+    this.state = {
+      show: false,
+    };
   }
 
   buildTableHeader() {
@@ -36,9 +40,26 @@ class Home extends Component {
             <button type="button" className="btn btn-outline-dark mr-1 mt-1" onClick={() => {window.location.href="/update/" + item.id }} >
               <BiPencil className="mb-1"/>
             </button>
-            <button type="button" className="btn btn-outline-danger mr-1 mt-1">
+            <button type="button" className="btn btn-outline-danger mr-1 mt-1" onClick={() => this.setState({ show: true })} >
               <BiTrash className="mb-1"/>
             </button>
+            <SweetAlert
+              show={this.state.show}
+              type="warning"
+              title="¿Estás seguro de eliminar la carta?"
+              text="Esta operación es irreversible"
+              showCancelButton
+              onConfirm={() => {
+                console.log('Eliminar'); // eslint-disable-line no-console
+                this.setState({ show: false });
+              }}
+              onCancel={() => {
+                console.log('Cancelar'); // eslint-disable-line no-console
+                this.setState({ show: false });
+              }}
+              onEscapeKey={() => this.setState({ show: false })}
+              onOutsideClick={() => this.setState({ show: false })}
+            />
           </td>
         </tr>
       );
