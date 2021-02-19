@@ -26,9 +26,9 @@ Pablo Alvarado 1104017
   },
   {
     "id":3,
-    "img":"https://lh3.googleusercontent.com/proxy/CjMjIDlPJueOnT94R-e-wnrx5CWBaJyliBsbI_-YGM2sK9-FUyAUp65r4AQG_ur8xQvfd-eZtS2z3XhaRSF-AAQ9uSuaPN1oDp6dgukV-1PfA9I7Dnc",
+    "img":"https://lh3.googleusercontent.com/proxy/yJnz0JEy-d22qpoTRwupbAg02QR3_SWPLHSmj5TDWK1u_TMR8MKaeQmKHbI07AKANVKZg5cqZDjPehuUQE7Y8lbBg6qgN_k8bnl5CPfjdqNtMJFXglt-fP5_",
     "nombre":"Valquiria",
-    "calidad":"Rara",
+    "calidad":"Especial",
     "tipoCarta":"Tropa",
     "vida":1643,
     "danio":293,
