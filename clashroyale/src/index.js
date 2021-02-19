@@ -6,6 +6,7 @@ import Login from './components/Login';
 import ResetPassword from './components/ResetPassword';
 import Home from './components/Home';
 import Create from './components/Create';
+import Update from './components/Update';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './index.css';
@@ -19,6 +20,7 @@ ReactDOM.render(
 
       <Route exact path="/home" component={Home}/>
       <Route exact path="/create" component={Create}/>
+      <Route exact path="/update/:id" component={Update}/>
       <Route render={() => <Redirect to={{ pathname: "/login" }}/>} />
     </Switch>
   </Router>,
