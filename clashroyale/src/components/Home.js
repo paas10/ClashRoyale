@@ -1,6 +1,5 @@
 import { React, Component } from "react";
 import Layout from "./Layout";
-import "./styles/Home.css";
 import { IoMdAdd } from "react-icons/io";
 import { BiPencil, BiTrash } from "react-icons/bi";
 
@@ -19,29 +18,31 @@ class Home extends Component {
   }
 
   buildTableBody() {
-    return cards.map(item => 
-    <tr className="text-center" key={item.id}>
-      <td className="p-1">
-        <div className="foto">
-          { this.buildImage(item.img) }
-        </div>
-      </td>
-      <td className="tableRow">{ item.nombre }</td>
-      <td className="tableRow">{ item.calidad }</td>
-      <td className="tableRow">{ item.tipoCarta }</td>
-      <td className="tableRow">{ item.vida }</td>
-      <td className="tableRow">{ item.danio }</td>
-      <td className="tableRow">{ item.velocidad }</td>
-      <td>
-        <button type="button" className="btn btn-outline-dark mr-1 mt-1">
-          <BiPencil className="mb-1"/>
-        </button>
-        <button type="button" className="btn btn-outline-danger mr-1 mt-1">
-          <BiTrash className="mb-1"/>
-        </button>
-      </td>
-    </tr>
-    );
+    if(cards) {
+      return cards.map(item => 
+        <tr className="text-center" key={item.id}>
+          <td className="p-1">
+            <div className="foto">
+              { this.buildImage(item.img) }
+            </div>
+          </td>
+          <td className="tableRow">{ item.nombre }</td>
+          <td className="tableRow">{ item.calidad }</td>
+          <td className="tableRow">{ item.tipoCarta }</td>
+          <td className="tableRow">{ item.vida }</td>
+          <td className="tableRow">{ item.danio }</td>
+          <td className="tableRow">{ item.velocidad }</td>
+          <td>
+            <button type="button" className="btn btn-outline-dark mr-1 mt-1" onClick={() => {window.location.href="/update/" + item.id }} >
+              <BiPencil className="mb-1"/>
+            </button>
+            <button type="button" className="btn btn-outline-danger mr-1 mt-1">
+              <BiTrash className="mb-1"/>
+            </button>
+          </td>
+        </tr>
+      );
+    } 
   }
 
   buildImage(imgSrc) {
