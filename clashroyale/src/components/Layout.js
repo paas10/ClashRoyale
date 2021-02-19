@@ -1,5 +1,4 @@
 import { React, Component } from "react";
-import "./styles/Layout.css";
 import SuperCell from "./../images/supercell_logo.png";
 import ClashRoyale from "./../images/ClashRoyaleLogo.png";
 import { GrPowerShutdown } from 'react-icons/gr';

@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles/ResetPassword.css";
 import corona from "./../images/corona.png";
 
 function ResetPassword() {
