@@ -1,19 +1,65 @@
 import { React, Component } from "react";
+import { Redirect } from 'react-router-dom'
 import ReactDOM from 'react-dom';
 import Layout from "./Layout";
 import { BiArrowBack } from "react-icons/bi";
 
-
+var cards = [];
 var rutaImagen = "";
 class Create extends Component {
 
+  constructor(props) {
+    super(props);
+    cards = JSON.parse(localStorage.getItem("cards"));
+  }
+
+  state = {
+    redirect: false
+  }
+
   buildImage(event) {
-    if(document.getElementById("rutaImg").value) {
+    if(document.getElementById("urlImg").value) {
       document.getElementById("placeImg").style.display = "initial";
-      rutaImagen = document.getElementById("rutaImg").value;
+      rutaImagen = document.getElementById("urlImg").value;
       ReactDOM.render(<img className="imgIndex" src={rutaImagen} alt="La ruta de la imagen es inválida" />, document.getElementById("placeImg"))
     } else {
       document.getElementById("placeImg").style.display = "none";
+    }
+  }
+
+  createCard = () => {
+
+    try{
+      var quality = document.getElementById('quality').value;
+      var typeCard = document.getElementById('typeCard').value;
+      var velocity = document.getElementById('velocity').value;
+
+      var newCard = {
+        "id":cards.length+1,
+        "img":document.getElementById('urlImg').value,
+        "nombre":document.getElementById('name').value,
+        "calidad":Number(quality) === 1 ? 'Común' : (Number(quality) === 2 ? 'Especial' : (Number(quality) === 3 ? 'Épica' : 'Legendaria')),
+        "tipoCarta":Number(typeCard) === 1 ? 'Tropa' : (Number(typeCard) === 2 ? 'Hechizo' : 'Estructura'),
+        "vida":document.getElementById('health').value,
+        "danio":document.getElementById('damage').value,
+        "velocidad":Number(velocity) === 1 ? 'Baja' : (Number(velocity) === 2 ? 'Media' : (Number(velocity) === 3 ? 'Alta' : (Number(velocity) === 4 ? 'Muy Alta' : '')))
+      }
+  
+      cards.push(newCard);
+      localStorage.setItem("cards", JSON.stringify(cards));
+    } catch (e){
+      console.log('Murio ', e)
+    }
+
+    this.setState({
+      redirect: true
+    })
+
+  }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to={{ pathname:'/home', state: { status: 'success' } }} />
     }
   }
 
@@ -37,8 +83,8 @@ class Create extends Component {
           </div>
         </div>
         
-        {/* CUERPO DE LA TABLA */}
-        <div className="row bodyTable">
+        {/* CUERPO DE LA VISTA */}
+        <div className="row bodyTable overflow-auto">
           <div className="col-12">
             {/* Preview de la imagen */}
             <div className="row">
@@ -46,103 +92,107 @@ class Create extends Component {
               </div>
             </div>
 
-            {/* Nombre */}
-            <div className="row justify-content-center mt-4">
-              <div className="col-2 col-form-label">
-                <span>Nombre</span>
+            {/* <form id="createForm" className="form-horizontal" encType="multipart/form-data" autoComplete="off" >  method="POST" */}
+              {/* Nombre */}
+              <div className="row justify-content-center mt-4">
+                <div className="col-2 col-form-label">
+                  <span>Nombre</span>
+                </div>
+                <div className="col-6">
+                  <input className="form-control" type="text" id="name" name="name" />
+                </div>
               </div>
-              <div className="col-6">
-                <input className="form-control" type="text" />
-              </div>
-            </div>
 
-            {/* Ruta Imagen */}
-            <div className="row justify-content-center mt-3">
-              <div className="col-2 col-form-label">
-                <span>Imagen (Ruta)</span>
+              {/* Ruta Imagen */}
+              <div className="row justify-content-center mt-3">
+                <div className="col-2 col-form-label">
+                  <span>Imagen (URL)</span>
+                </div>
+                <div className="col-6">
+                  <input className="form-control" type="text" id="urlImg" name="urlImg" onChange={this.buildImage} />
+                </div>
               </div>
-              <div className="col-6">
-                <input className="form-control" type="text" id="rutaImg" onChange={this.buildImage} />
-              </div>
-            </div>
 
-            {/* Calidad */}
-            <div className="row justify-content-center mt-3">
-              <div className="col-2 col-form-label">
-                <span>Calidad</span>
+              {/* Calidad */}
+              <div className="row justify-content-center mt-3">
+                <div className="col-2 col-form-label">
+                  <span>Calidad</span>
+                </div>
+                <div className="col-6">
+                  <select className="selectpicker form-control" type="text" id="quality" name="quality">
+                    <option value="1">Común</option>
+                    <option value="2">Especial</option>
+                    <option value="3">Épica</option>
+                    <option value="3">Legendaria</option>
+                  </select>
+                </div>
               </div>
-              <div className="col-6">
-                <select className="selectpicker form-control" type="text" name="quality">
-                  <option value="1">Común</option>
-                  <option value="2">Especial</option>
-                  <option value="3">Épica</option>
-                  <option value="3">Legendaria</option>
-                </select>
-              </div>
-            </div>
 
-            {/* Tipo de Carta */}
-            <div className="row justify-content-center mt-3">
-              <div className="col-2 col-form-label">
-                <span>Tipo de Carta</span>
+              {/* Tipo de Carta */}
+              <div className="row justify-content-center mt-3">
+                <div className="col-2 col-form-label">
+                  <span>Tipo de Carta</span>
+                </div>
+                <div className="col-6">
+                <select className="selectpicker form-control" type="text" id="typeCard" name="typeCard">
+                    <option value="1">Tropa</option>
+                    <option value="2">Hechizo</option>
+                    <option value="3">Estructura</option>
+                  </select>
+                </div>
               </div>
-              <div className="col-6">
-              <select className="selectpicker form-control" type="text" name="quality">
-                  <option value="1">Tropa</option>
-                  <option value="2">Hechizo</option>
-                  <option value="3">Estructura</option>
-                </select>
-              </div>
-            </div>
 
-            {/* Vida */}
-            <div className="row justify-content-center mt-3">
-              <div className="col-2 col-form-label">
-                <span>Vida</span>
+              {/* Vida */}
+              <div className="row justify-content-center mt-3">
+                <div className="col-2 col-form-label">
+                  <span>Vida</span>
+                </div>
+                <div className="col-6">
+                  <input className="form-control" type="number" id="health" name="health" step="1" min="0" />
+                </div>
               </div>
-              <div className="col-6">
-                <input className="form-control" type="number" step="1" min="0" />
-              </div>
-            </div>
 
-            {/* Daño */}
-            <div className="row justify-content-center mt-3">
-              <div className="col-2 col-form-label">
-                <span>Daño</span>
+              {/* Daño */}
+              <div className="row justify-content-center mt-3">
+                <div className="col-2 col-form-label">
+                  <span>Daño</span>
+                </div>
+                <div className="col-6">
+                  <input className="form-control" type="number" id="damage" name="damage" step="1" min="0" />
+                </div>
               </div>
-              <div className="col-6">
-                <input className="form-control" type="number" step="1" min="0" />
-              </div>
-            </div>
 
-            {/* Velocidad */}
-            <div className="row justify-content-center mt-3">
-              <div className="col-2 col-form-label">
-                <span>Velocidad</span>
+              {/* Velocidad */}
+              <div className="row justify-content-center mt-3">
+                <div className="col-2 col-form-label">
+                  <span>Velocidad</span>
+                </div>
+                <div className="col-6">
+                  <select className="selectpicker form-control" type="text" id="velocity" name="velocity">
+                    <option value="-1"></option>
+                    <option value="1">Baja</option>
+                    <option value="2">Media</option>
+                    <option value="3">Alta</option>
+                    <option value="3">Mul Alta</option>
+                  </select>
+                </div>
               </div>
-              <div className="col-6">
-                <select className="selectpicker form-control" type="text" name="velocity">
-                  <option value="-1"></option>
-                  <option value="1">Baja</option>
-                  <option value="2">Media</option>
-                  <option value="3">Alta</option>
-                  <option value="3">Mul Alta</option>
-                </select>
-              </div>
-            </div>
 
-            <div className="row justify-content-center mt-4">
-              <button type="button" className="btn btn-outline-primary" onClick={() => {window.location.href="/home"}}>
-                <span className="">CREAR</span>
-              </button>
-            </div>
+              <div className="row justify-content-center mt-4">
+                <button type="submit" className="btn btn-outline-primary" onClick={this.createCard} > {/* onClick={() => {window.location.href="/home"}} */}
+                  <span className="">CREAR</span>
+                </button>
+              </div>
+            {/* </form> */}
+
 
           </div>
         </div>
+        {this.renderRedirect()}
       </Layout>
     );
   }
 }
   
-  export default Create;
+export default Create;
   

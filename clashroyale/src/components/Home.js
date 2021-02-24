@@ -6,12 +6,14 @@ import { BiPencil, BiTrash } from "react-icons/bi";
 
 const header = ["Imagen", "Nombre", "Calidad", "Tipo de Carta", "Vida", "Daño", "Velocidad" ,"Acciones"];
 var cards = [];
-
 class Home extends Component {
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
+    // Se extrae a la variable cards las cargas en Local Storage
     cards = JSON.parse(localStorage.getItem("cards"));
+
+    // No se muestra el modal
     this.state = {
       show: false,
     };
@@ -97,16 +99,20 @@ class Home extends Component {
         {/* CUERPO DE LA TABLA */}
         <div className="row bodyTable">
           <div className="col-12">
-            <table className="table">
-              <thead>
-                <tr>
-                  { this.buildTableHeader() }
-                </tr>
-              </thead>
-              <tbody>
-                { this.buildTableBody() }
-              </tbody>
-            </table>
+
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                  <tr>
+                    { this.buildTableHeader() }
+                  </tr>
+                </thead>
+                <tbody>
+                  { this.buildTableBody() }
+                </tbody>
+              </table>
+            </div>
+
           </div>
         </div>
       </Layout>
