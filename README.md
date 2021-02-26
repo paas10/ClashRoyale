@@ -35,3 +35,6 @@ Pablo Alvarado 1104017
     "velocidad":"Media"
   }
 ]
+
+IMAGEN DE BRUJA NOCTURNA
+https://i.pinimg.com/originals/dc/0f/63/dc0f63a45e84b4c9c7fd3ae74440824e.png

@@ -8,6 +8,9 @@ import Home from './components/Home';
 import Create from './components/Create';
 import Update from './components/Update';
 
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import 'sweetalert/dist/sweetalert.css';
@@ -15,6 +18,7 @@ import 'fontsource-roboto';
 
 ReactDOM.render(
   <Router>
+    <ReactNotification />
     <Switch>
       <Route exact path="/login" component={Login}/>
       <Route exact path="/reset" component={ResetPassword} />

@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import ReactDOM from 'react-dom';
 import Layout from "./Layout";
 import { BiArrowBack } from "react-icons/bi";
+import { store } from 'react-notifications-component';
 
 var cards = [];
 var rutaImagen = "";
@@ -13,6 +14,7 @@ class Create extends Component {
     cards = JSON.parse(localStorage.getItem("cards"));
   }
 
+  // variable que establece si se redirecciona o no hacia el index
   state = {
     redirect: false
   }
@@ -47,19 +49,48 @@ class Create extends Component {
   
       cards.push(newCard);
       localStorage.setItem("cards", JSON.stringify(cards));
+
+      store.addNotification({
+        message: "Se ha creado la carta correctamente",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 3000,
+          showIcon: true,
+          onScreen: true
+        }
+      });
+
+      // Se establece la redirección como verdadero, lo que indica que se ha creado la carta correctamente.
+      this.setState({
+        redirect: true
+      })
     } catch (e){
       console.log('Murio ', e)
+      store.addNotification({
+        title: "Error",
+        message: "Ha ocurrido un error intesperado, intenta de nuevo más tarde",
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 3000,
+          showIcon: true,
+          onScreen: true
+        }
+      });
     }
-
-    this.setState({
-      redirect: true
-    })
 
   }
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to={{ pathname:'/home', state: { status: 'success' } }} />
+      return <Redirect to={{ pathname:'/home' }} />
     }
   }
 

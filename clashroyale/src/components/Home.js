@@ -3,6 +3,7 @@ import SweetAlert from 'sweetalert-react';
 import Layout from "./Layout";
 import { IoMdAdd } from "react-icons/io";
 import { BiPencil, BiTrash } from "react-icons/bi";
+import { store } from 'react-notifications-component';
 
 const header = ["Imagen", "Nombre", "Calidad", "Tipo de Carta", "Vida", "Daño", "Velocidad" ,"Acciones"];
 var cards = [];
@@ -13,9 +14,9 @@ class Home extends Component {
     // Se extrae a la variable cards las cargas en Local Storage
     cards = JSON.parse(localStorage.getItem("cards"));
 
-    // No se muestra el modal
+    // No se muestra el modal de eliminar
     this.state = {
-      show: false,
+      show: false
     };
   }
 
