@@ -20,6 +20,56 @@ class Home extends Component {
     };
   }
 
+  deleteCard(id) {
+    // console.log('Carta a eliminar ', id)
+
+    var index = 0;
+    for (var i = 0; i < cards.length; i++) {
+      if(parseInt(cards[i].id) === id){
+        index = i;
+      }
+    }
+
+    try {
+      cards.splice(index, 1);
+      localStorage.setItem("cards", JSON.stringify(cards));
+
+      store.addNotification({
+        message: "La carta se ha eliminado correctamente",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 3000,
+          showIcon: true,
+          onScreen: true
+        }
+      });
+
+      this.setState({ show: false })
+    } catch (e){
+      console.log('Murio ', e)
+      store.addNotification({
+        title: "Error",
+        message: "Ha ocurrido un error intesperado, intenta de nuevo más tarde",
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 3000,
+          showIcon: true,
+          onScreen: true
+        }
+      });
+
+      this.setState({ show: false })
+    }
+  }
+
   buildTableHeader() {
     return header.map(item => <th className="text-center" scope="col" key={item}>{ item }</th>)
   }
@@ -43,21 +93,21 @@ class Home extends Component {
             <button type="button" className="btn btn-outline-dark mr-1 mt-1" onClick={() => {window.location.href="/update/" + item.id }} >
               <BiPencil className="mb-1"/>
             </button>
-            <button type="button" className="btn btn-outline-danger mr-1 mt-1" onClick={() => this.setState({ show: true })} >
+            <button type="button" className="btn btn-outline-danger mr-1 mt-1" onClick={() => this.setState({ show: true, id: item.id })} >
               <BiTrash className="mb-1"/>
             </button>
             <SweetAlert
+              id={item.id}
               show={this.state.show}
               type="warning"
               title="¿Estás seguro de eliminar la carta?"
               text="Esta operación es irreversible"
               showCancelButton
               onConfirm={() => {
-                console.log('Eliminar'); // eslint-disable-line no-console
+                this.deleteCard(this.state.id);
                 this.setState({ show: false });
               }}
               onCancel={() => {
-                console.log('Cancelar'); // eslint-disable-line no-console
                 this.setState({ show: false });
               }}
               onEscapeKey={() => this.setState({ show: false })}
