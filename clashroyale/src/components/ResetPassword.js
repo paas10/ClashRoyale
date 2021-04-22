@@ -8,7 +8,7 @@ function ResetPassword() {
         <div className="tarjetaReset p-5">
           <div className="row">
             <div className="text-center col-12 ">
-              <img src={corona} className="logoCard" />
+              <img src={corona} className="logoCard" alt="Corona" />
             </div>
           </div>
           <div className="row mt-2">

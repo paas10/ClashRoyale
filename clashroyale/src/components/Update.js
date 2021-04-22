@@ -2,7 +2,7 @@ import { React, Component } from "react";
 import { Redirect } from 'react-router-dom'
 import ReactDOM from 'react-dom';
 import Layout from "./Layout";
-import { BiArrowBack, BiCartAlt } from "react-icons/bi";
+import { BiArrowBack } from "react-icons/bi";
 import { store } from 'react-notifications-component';
 
 var cards = [];

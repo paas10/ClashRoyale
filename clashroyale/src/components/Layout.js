@@ -10,10 +10,10 @@ class Layout extends Component {
         <div className="header">
           <div className="row rowHeader m-0">
             <div className="text-left col-2">
-              <img src={SuperCell} className="SuperCellImg ml-2" />
+              <img src={SuperCell} className="SuperCellImg ml-2" alt="Description" />
             </div>
             <div className="text-center col-8">
-              <img src={ClashRoyale} className="ClashRoyaleImg" />
+              <img src={ClashRoyale} className="ClashRoyaleImg" alt="Description" />
             </div>
             <div className="text-right col-2">
               <div className="btnLogout">

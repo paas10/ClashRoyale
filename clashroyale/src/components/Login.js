@@ -8,7 +8,7 @@ function Login() {
         <div className="tarjetaLogin p-5">
           <div className="row">
             <div className="text-center col-12 ">
-              <img src={corona} className="logoCard" />
+              <img src={corona} className="logoCard" alt="Corona" />
             </div>
           </div>
           <div className="row mt-2">
@@ -17,7 +17,7 @@ function Login() {
                 <b>Iniciar Sesión</b>
               </h3>
               <span>¿No tienes cuenta? </span>
-              <a href="">
+              <a href="/#">
                 Registrate
               </a>
             </div>
