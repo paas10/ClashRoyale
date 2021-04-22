@@ -68,3 +68,20 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+# DOCKER COMMANDS
+1. Se crea la imagen del Frontend:
+```bash
+docker build -t frontend:dev .
+```
+
+2. Se crea la imagen del Backend:
+```bash
+docker build -t backend:dev .
+```
+
+3. Se crea el contenedor con el siguiente comando, el cuál crea el contender a partirl del archivo docker-compose.yml
+```bash
+docker-compose up -d --build
+```
