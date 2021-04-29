@@ -4,35 +4,45 @@ import Layout from "./Layout";
 import { IoMdAdd } from "react-icons/io";
 import { BiPencil, BiTrash } from "react-icons/bi";
 import { store } from 'react-notifications-component';
+import { environment } from './../environments/environment'
 
 const header = ["Imagen", "Nombre", "Calidad", "Tipo de Carta", "Vida", "Daño", "Velocidad" ,"Acciones"];
-var cards = [];
 class Home extends Component {
 
   constructor(props) {
     super(props);
-    // Se extrae a la variable cards las cargas en Local Storage
-    cards = JSON.parse(localStorage.getItem("cards"));
 
     // No se muestra el modal de eliminar
     this.state = {
+      cards: [],
       show: false
     };
+  }
+
+  componentDidMount() {
+    fetch(environment.urlCards, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(res => res.json())
+      .then(data => this.setState({ cards: data }));
   }
 
   deleteCard(id) {
     // console.log('Carta a eliminar ', id)
 
     var index = 0;
-    for (var i = 0; i < cards.length; i++) {
-      if(parseInt(cards[i].id) === id){
+    for (var i = 0; i < this.state.cards.length; i++) {
+      if(parseInt(this.state.cards[i].id) === id){
         index = i;
       }
     }
 
     try {
-      cards.splice(index, 1);
-      localStorage.setItem("cards", JSON.stringify(cards));
+      this.state.cards.splice(index, 1);
+      localStorage.setItem("cards", JSON.stringify(this.state.cards));
 
       store.addNotification({
         message: "La carta se ha eliminado correctamente",
@@ -75,8 +85,8 @@ class Home extends Component {
   }
 
   buildTableBody() {
-    if(cards) {
-      return cards.map(item => 
+    if(this.state.cards) {
+      return this.state.cards.map(item => 
         <tr className="text-center" key={item.id}>
           <td className="p-1">
             <div className="foto">
@@ -116,7 +126,7 @@ class Home extends Component {
           </td>
         </tr>
       );
-    } 
+    }
   }
 
   buildImage(imgSrc) {
