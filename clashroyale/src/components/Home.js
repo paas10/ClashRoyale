@@ -23,9 +23,7 @@ class Home extends Component {
     fetch(environment.urlCards, {
       method: 'GET',
       mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      }
+      headers: { 'Content-Type': 'application/json' }
     }).then(res => res.json())
       .then(data => this.setState({ cards: data }));
   }
