@@ -4,14 +4,13 @@ import ReactDOM from 'react-dom';
 import Layout from "./Layout";
 import { BiArrowBack } from "react-icons/bi";
 import { store } from 'react-notifications-component';
+import { environment } from '../environments/environment';
 
-var cards = [];
 var rutaImagen = "";
 class Create extends Component {
 
   constructor(props) {
     super(props);
-    cards = JSON.parse(localStorage.getItem("cards"));
   }
 
   // variable que establece si se redirecciona o no hacia el index
@@ -31,60 +30,66 @@ class Create extends Component {
 
   createCard = () => {
 
-    try{
       var quality = document.getElementById('quality').value;
       var typeCard = document.getElementById('typeCard').value;
       var velocity = document.getElementById('velocity').value;
 
-      var newCard = {
-        "id":cards.length+1,
-        "img":document.getElementById('urlImg').value,
-        "nombre":document.getElementById('name').value,
-        "calidad":Number(quality) === 1 ? 'Común' : (Number(quality) === 2 ? 'Especial' : (Number(quality) === 3 ? 'Épica' : 'Legendaria')),
-        "tipoCarta":Number(typeCard) === 1 ? 'Tropa' : (Number(typeCard) === 2 ? 'Hechizo' : 'Estructura'),
-        "vida":document.getElementById('health').value,
-        "danio":document.getElementById('damage').value,
-        "velocidad":Number(velocity) === 1 ? 'Baja' : (Number(velocity) === 2 ? 'Media' : (Number(velocity) === 3 ? 'Alta' : (Number(velocity) === 4 ? 'Muy Alta' : '')))
-      }
-  
-      cards.push(newCard);
-      localStorage.setItem("cards", JSON.stringify(cards));
+      fetch(environment.urlCards_create, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          img: document.getElementById('urlImg').value,
+          nombre: document.getElementById('name').value,
+          calidad: Number(quality) === 1 ? 'Común' : (Number(quality) === 2 ? 'Especial' : (Number(quality) === 3 ? 'Épica' : 'Legendaria')),
+          tipoCarta: Number(typeCard) === 1 ? 'Tropa' : (Number(typeCard) === 2 ? 'Hechizo' : 'Estructura'),
+          vida: document.getElementById('health').value,
+          danio: document.getElementById('damage').value,
+          velocidad: Number(velocity) === 1 ? 'Baja' : (Number(velocity) === 2 ? 'Media' : (Number(velocity) === 3 ? 'Alta' : (Number(velocity) === 4 ? 'Muy Alta' : '')))
+        })
+      }).then(res => res.json())
+        .then(data => {
+          console.log('Carta agregada ', data);
 
-      store.addNotification({
-        message: "Se ha creado la carta correctamente",
-        type: "success",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 3000,
-          showIcon: true,
-          onScreen: true
-        }
-      });
+          store.addNotification({
+            message: "Se ha creado la carta correctamente",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              showIcon: true,
+              onScreen: true
+            }
+          });
+    
+          // Se establece la redirección como verdadero, lo que indica que se ha creado la carta correctamente.
+          this.setState({
+            redirect: true
+          })
 
-      // Se establece la redirección como verdadero, lo que indica que se ha creado la carta correctamente.
-      this.setState({
-        redirect: true
-      })
-    } catch (e){
-      console.log('Murio ', e)
-      store.addNotification({
-        title: "Error",
-        message: "Ha ocurrido un error intesperado, intenta de nuevo más tarde",
-        type: "danger",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 3000,
-          showIcon: true,
-          onScreen: true
-        }
-      });
-    }
+        })
+        .catch(error => {
+          this.setState({ errorMessage: error.toString() });
+          console.error('There was an error!', error);
+
+          store.addNotification({
+            title: "Error",
+            message: "Ha ocurrido un error intesperado, intenta de nuevo más tarde",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              showIcon: true,
+              onScreen: true
+            }
+          });
+        });
 
   }
 
