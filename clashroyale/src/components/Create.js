@@ -11,11 +11,11 @@ class Create extends Component {
 
   constructor(props) {
     super(props);
-  }
 
-  // variable que establece si se redirecciona o no hacia el index
-  state = {
-    redirect: false
+    // variable que establece si se redirecciona o no hacia el index
+    this.state = {
+      redirect: false
+    }
   }
 
   buildImage(event) {
@@ -29,68 +29,66 @@ class Create extends Component {
   }
 
   createCard = () => {
+    var quality = document.getElementById('quality').value;
+    var typeCard = document.getElementById('typeCard').value;
+    var velocity = document.getElementById('velocity').value;
 
-      var quality = document.getElementById('quality').value;
-      var typeCard = document.getElementById('typeCard').value;
-      var velocity = document.getElementById('velocity').value;
+    fetch(environment.urlCards_create, {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        img: document.getElementById('urlImg').value,
+        nombre: document.getElementById('name').value,
+        calidad: Number(quality) === 1 ? 'Común' : (Number(quality) === 2 ? 'Especial' : (Number(quality) === 3 ? 'Épica' : 'Legendaria')),
+        tipoCarta: Number(typeCard) === 1 ? 'Tropa' : (Number(typeCard) === 2 ? 'Hechizo' : 'Estructura'),
+        vida: document.getElementById('health').value,
+        danio: document.getElementById('damage').value,
+        velocidad: Number(velocity) === 1 ? 'Baja' : (Number(velocity) === 2 ? 'Media' : (Number(velocity) === 3 ? 'Alta' : (Number(velocity) === 4 ? 'Muy Alta' : '')))
+      })
+    }).then(res => res.json())
+      .then(data => {
+        console.log('Carta agregada ', data);
 
-      fetch(environment.urlCards_create, {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          img: document.getElementById('urlImg').value,
-          nombre: document.getElementById('name').value,
-          calidad: Number(quality) === 1 ? 'Común' : (Number(quality) === 2 ? 'Especial' : (Number(quality) === 3 ? 'Épica' : 'Legendaria')),
-          tipoCarta: Number(typeCard) === 1 ? 'Tropa' : (Number(typeCard) === 2 ? 'Hechizo' : 'Estructura'),
-          vida: document.getElementById('health').value,
-          danio: document.getElementById('damage').value,
-          velocidad: Number(velocity) === 1 ? 'Baja' : (Number(velocity) === 2 ? 'Media' : (Number(velocity) === 3 ? 'Alta' : (Number(velocity) === 4 ? 'Muy Alta' : '')))
-        })
-      }).then(res => res.json())
-        .then(data => {
-          console.log('Carta agregada ', data);
-
-          store.addNotification({
-            message: "Se ha creado la carta correctamente",
-            type: "success",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animate__animated", "animate__fadeIn"],
-            animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-              duration: 3000,
-              showIcon: true,
-              onScreen: true
-            }
-          });
-    
-          // Se establece la redirección como verdadero, lo que indica que se ha creado la carta correctamente.
-          this.setState({
-            redirect: true
-          })
-
-        })
-        .catch(error => {
-          this.setState({ errorMessage: error.toString() });
-          console.error('There was an error!', error);
-
-          store.addNotification({
-            title: "Error",
-            message: "Ha ocurrido un error intesperado, intenta de nuevo más tarde",
-            type: "danger",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animate__animated", "animate__fadeIn"],
-            animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-              duration: 3000,
-              showIcon: true,
-              onScreen: true
-            }
-          });
+        store.addNotification({
+          message: "Se ha creado la carta correctamente",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 3000,
+            showIcon: true,
+            onScreen: true
+          }
         });
+  
+        // Se establece la redirección como verdadero, lo que indica que se ha creado la carta correctamente.
+        this.setState({
+          redirect: true
+        })
 
+      })
+      .catch(error => {
+        this.setState({ errorMessage: error.toString() });
+        console.error('There was an error!', error);
+
+        store.addNotification({
+          title: "Error",
+          message: "Ha ocurrido un error intesperado, intenta de nuevo más tarde",
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 3000,
+            showIcon: true,
+            onScreen: true
+          }
+        });
+      });
   }
 
   renderRedirect = () => {
