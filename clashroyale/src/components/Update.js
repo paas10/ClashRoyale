@@ -4,104 +4,117 @@ import ReactDOM from 'react-dom';
 import Layout from "./Layout";
 import { BiArrowBack } from "react-icons/bi";
 import { store } from 'react-notifications-component';
+import { environment } from './../environments/environment';
 
-var cards = [];
-var card;
-var rutaImagen = "";
 class Create extends Component {
 
   constructor(props) {
     super(props);
 
-    // Se extrae a la variable cards las cargas en Local Storage
-    cards = JSON.parse(localStorage.getItem("cards"));
-    cards.forEach(item => {
-      if(parseInt(item.id) === parseInt(this.props.match.params.id)){
-        card = item;
-        rutaImagen = item.img;
-      }
-    });
+    this.state = {
+      card: {},
+      rutaImagen: String,
 
-    card.calidad = card.calidad === 'Común' ? 1  : (card.calidad === 'Especial' ? 2 : (card.calidad === 'Épica' ? 3 : 4));
-    card.tipoCarta = card.tipoCarta === 'Tropa' ? 1 : (card.tipoCarta === 'Hechizo' ? 2 : 3);
-    card.velocidad = card.velocidad === 'Baja' ? 1 : (card.velocidad === 'Media' ? 2 : (card.velocidad === 'Alta' ? 3 : (card.velocidad === 'Muy Alta' ? 4 : '')));
+      redirect: false
+    }
+  }
+
+  // variable que establece si se redirecciona o no hacia el index
+  
+
+  componentDidMount() {
+    fetch(environment.urlCards + this.props.match.params.id, {
+      method: 'GET',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' }
+    }).then(res => res.json())
+      .then(data => {
+        // console.log('DATA ', data)
+
+        var carta = data;
+        carta.calidad = carta.calidad === 'Común' ? 1  : (carta.calidad === 'Especial' ? 2 : (carta.calidad === 'Épica' ? 3 : 4));
+        carta.tipoCarta = carta.tipoCarta === 'Tropa' ? 1 : (carta.tipoCarta === 'Hechizo' ? 2 : 3);
+        carta.velocidad = carta.velocidad === 'Baja' ? 1 : (carta.velocidad === 'Media' ? 2 : (carta.velocidad === 'Alta' ? 3 : (carta.velocidad === 'Muy Alta' ? 4 : '')));
+
+        document.getElementById('quality').value = data.calidad;
+        document.getElementById('typeCard').value = data.tipoCarta;
+        if(data.velocidad) document.getElementById('velocity').value = data.velocidad;
+
+        this.setState({ 
+          card: carta,
+          rutaImagen: data.img
+        });
+      });
   }
 
   buildImage(event) {
     if(document.getElementById("rutaImg").value) {
       document.getElementById("placeImgUpdate").style.display = "initial";
-      rutaImagen = document.getElementById("rutaImg").value;
-      ReactDOM.render(<img className="imgIndex" src={rutaImagen} alt="La ruta de la imagen es inválida" />, document.getElementById("placeImgUpdate"))
+      this.setState({ rutaImagen: document.getElementById("rutaImg").value })
+      ReactDOM.render(<img className="imgIndex" src={this.state.rutaImagen} alt="La ruta de la imagen es inválida" />, document.getElementById("placeImgUpdate"))
     } else {
       document.getElementById("placeImgUpdate").style.display = "none";
     }
   }
 
-  // variable que establece si se redirecciona o no hacia el index
-  state = {
-    redirect: false
-  }
-
   updateCard = () => {
-    try{
-      var quality = document.getElementById('quality').value;
-      var typeCard = document.getElementById('typeCard').value;
-      var velocity = document.getElementById('velocity').value;
+    var quality = document.getElementById('quality').value;
+    var typeCard = document.getElementById('typeCard').value;
+    var velocity = document.getElementById('velocity').value;
 
-      var newCard = {
-        "id":card.id,
-        "img":document.getElementById('urlImg').value,
-        "nombre":document.getElementById('name').value,
-        "calidad":Number(quality) === 1 ? 'Común' : (Number(quality) === 2 ? 'Especial' : (Number(quality) === 3 ? 'Épica' : 'Legendaria')),
-        "tipoCarta":Number(typeCard) === 1 ? 'Tropa' : (Number(typeCard) === 2 ? 'Hechizo' : 'Estructura'),
-        "vida":document.getElementById('health').value,
-        "danio":document.getElementById('damage').value,
-        "velocidad":Number(velocity) === 1 ? 'Baja' : (Number(velocity) === 2 ? 'Media' : (Number(velocity) === 3 ? 'Alta' : (Number(velocity) === 4 ? 'Muy Alta' : '')))
-      }
-  
-      for (var i = 0; i < cards.length; i++) {
-        if(parseInt(cards[i].id) === parseInt(this.props.match.params.id)) {
-          cards[i] = newCard;
-        }
-      }
-
-      localStorage.setItem("cards", JSON.stringify(cards));
-
-      store.addNotification({
-        message: "Se ha creado la carta correctamente",
-        type: "success",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 3000,
-          showIcon: true,
-          onScreen: true
-        }
-      });
-
-      // Se establece la redirección como verdadero, lo que indica que se ha creado la carta correctamente.
-      this.setState({
-        redirect: true
+    fetch(environment.urlCards + this.state.card._id, {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: this.state.card._id,
+        img: document.getElementById('urlImg').value,
+        nombre: document.getElementById('name').value,
+        calidad: Number(quality) === 1 ? 'Común' : (Number(quality) === 2 ? 'Especial' : (Number(quality) === 3 ? 'Épica' : 'Legendaria')),
+        tipoCarta: Number(typeCard) === 1 ? 'Tropa' : (Number(typeCard) === 2 ? 'Hechizo' : 'Estructura'),
+        vida: document.getElementById('health').value,
+        danio: document.getElementById('damage').value,
+        velocidad: Number(velocity) === 1 ? 'Baja' : (Number(velocity) === 2 ? 'Media' : (Number(velocity) === 3 ? 'Alta' : (Number(velocity) === 4 ? 'Muy Alta' : '')))
       })
-    } catch (e){
-      console.log('Murio ', e)
-      store.addNotification({
-        title: "Error",
-        message: "Ha ocurrido un error intesperado, intenta de nuevo más tarde",
-        type: "danger",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 3000,
-          showIcon: true,
-          onScreen: true
-        }
+    }).then(data => {
+        // console.log('Carta agregada ', data);
+  
+        store.addNotification({
+          message: "Se ha creado la carta correctamente",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 3000,
+            showIcon: true,
+            onScreen: true
+          }
+        });
+  
+        // Se establece la redirección como verdadero, lo que indica que se ha creado la carta correctamente.
+        this.setState({
+          redirect: true
+        })
+      })
+      .catch(error => {
+        console.log('Error ', error)
+        store.addNotification({
+          title: "Error",
+          message: "Ha ocurrido un error intesperado, intenta de nuevo más tarde",
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 3000,
+            showIcon: true,
+            onScreen: true
+          }
+        });
       });
-    }
   }
 
   renderRedirect = () => {
@@ -136,7 +149,7 @@ class Create extends Component {
             {/* Preview de la imagen */}
             <div className="row">
               <div className="col-12 text-center" id="placeImgUpdate">
-                <img className="imgIndex" src={rutaImagen} alt="La ruta de la imagen es inválida" />
+                <img className="imgIndex" src={this.state.rutaImagen} alt="La ruta de la imagen es inválida" />
               </div>
             </div>
 
@@ -146,7 +159,7 @@ class Create extends Component {
                 <span>Nombre</span>
               </div>
               <div className="col-6">
-                <input className="form-control" type="text" id="name" name="name" defaultValue={card.nombre} />
+                <input className="form-control" type="text" id="name" name="name" defaultValue={this.state.card.nombre} />
               </div>
             </div>
 
@@ -156,7 +169,7 @@ class Create extends Component {
                 <span>Imagen (URL)</span>
               </div>
               <div className="col-6">
-                <input className="form-control" type="text" id="urlImg" name="urlImg" onChange={this.buildImage} defaultValue={rutaImagen} />
+                <input className="form-control" type="text" id="urlImg" name="urlImg" onChange={this.buildImage} defaultValue={this.state.rutaImagen} />
               </div>
             </div>
 
@@ -166,11 +179,11 @@ class Create extends Component {
                 <span>Calidad</span>
               </div>
               <div className="col-6">
-                <select className="selectpicker form-control" type="text" id="quality" name="quality" defaultValue={card.calidad}>
+                <select className="selectpicker form-control" type="text" id="quality" name="quality" defaultValue={this.state.card.calidad}>
                   <option value="1">Común</option>
                   <option value="2">Especial</option>
                   <option value="3">Épica</option>
-                  <option value="3">Legendaria</option>
+                  <option value="4">Legendaria</option>
                 </select>
               </div>
             </div>
@@ -181,7 +194,7 @@ class Create extends Component {
                 <span>Tipo de Carta</span>
               </div>
               <div className="col-6">
-              <select className="selectpicker form-control" type="text" id="typeCard" name="typeCard" defaultValue={card.tipoCarta}>
+              <select className="selectpicker form-control" type="text" id="typeCard" name="typeCard" defaultValue={this.state.card.tipoCarta}>
                   <option value="1">Tropa</option>
                   <option value="2">Hechizo</option>
                   <option value="3">Estructura</option>
@@ -195,7 +208,7 @@ class Create extends Component {
                 <span>Vida</span>
               </div>
               <div className="col-6">
-                <input className="form-control" type="number" id="health" name="health" step="1" min="0" defaultValue={card.vida} />
+                <input className="form-control" type="number" id="health" name="health" step="1" min="0" defaultValue={this.state.card.vida} />
               </div>
             </div>
 
@@ -205,7 +218,7 @@ class Create extends Component {
                 <span>Daño</span>
               </div>
               <div className="col-6">
-                <input className="form-control" type="number" id="damage" name="damage" step="1" min="0" defaultValue={card.danio} />
+                <input className="form-control" type="number" id="damage" name="damage" step="1" min="0" defaultValue={this.state.card.danio} />
               </div>
             </div>
 
@@ -215,12 +228,12 @@ class Create extends Component {
                 <span>Velocidad</span>
               </div>
               <div className="col-6">
-                <select className="selectpicker form-control" type="text" id="velocity" name="velocity" defaultValue={card.velocidad} >
+                <select className="selectpicker form-control" type="text" id="velocity" name="velocity" defaultValue={this.state.velocidad} >
                   <option value="-1"></option>
                   <option value="1">Baja</option>
                   <option value="2">Media</option>
                   <option value="3">Alta</option>
-                  <option value="3">Mul Alta</option>
+                  <option value="4">Mul Alta</option>
                 </select>
               </div>
             </div>
