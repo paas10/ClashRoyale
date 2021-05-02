@@ -120,7 +120,7 @@ class Create extends Component {
             <h3 className="mb-0">
               <b>EDITAR CARTA</b>
             </h3>
-            <span>Actualiza las características de una carta existente</span>
+            {/* <span>Actualiza las características de una carta existente</span> */}
           </div>
           <div className="text-right col-2">
             <button type="button" className="btn btn-outline-dark mt-3 mr-2 btnRegresar" onClick={() => {window.location.href="/home"}}>

@@ -145,7 +145,7 @@ class Home extends Component {
             <h3 className="mb-0">
               <b>CARTAS</b>
             </h3>
-            <span>Cartas disponibles en la plataforma</span>
+            {/* <span>Cartas disponibles en la plataforma</span> */}
           </div>
           <div className="text-right col-2">
             <button type="button" className="btn btn-outline-success mt-3 mr-2" onClick={() => {window.location.href="/create"}}>
