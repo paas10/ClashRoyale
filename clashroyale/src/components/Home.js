@@ -31,51 +31,51 @@ class Home extends Component {
   deleteCard(id) {
     // console.log('Carta a eliminar ', id)
 
-    var index = 0;
-    for (var i = 0; i < this.state.cards.length; i++) {
-      if(parseInt(this.state.cards[i].id) === id){
-        index = i;
-      }
-    }
+    fetch(environment.urlCards + id, {
+      method: 'DELETE',
+      mode: 'cors',
+    }).then(data => {
+        // console.log('Carta eliminada ', data);
 
-    try {
-      this.state.cards.splice(index, 1);
-      localStorage.setItem("cards", JSON.stringify(this.state.cards));
+        // Se oculta el registro
+        document.getElementById(id).remove()
 
-      store.addNotification({
-        message: "La carta se ha eliminado correctamente",
-        type: "success",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 3000,
-          showIcon: true,
-          onScreen: true
-        }
+        store.addNotification({
+          message: "La carta se ha eliminado correctamente",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 3000,
+            showIcon: true,
+            onScreen: true
+          }
+        });
+  
+        this.setState({ show: false })
+      })
+      .catch(error => {
+        console.log('Error ', error)
+
+        store.addNotification({
+          title: "Error",
+          message: "Ha ocurrido un error intesperado, intenta de nuevo más tarde",
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 3000,
+            showIcon: true,
+            onScreen: true
+          }
+        });
+
+        this.setState({ show: false })
       });
-
-      this.setState({ show: false })
-    } catch (e){
-      console.log('Murio ', e)
-      store.addNotification({
-        title: "Error",
-        message: "Ha ocurrido un error intesperado, intenta de nuevo más tarde",
-        type: "danger",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 3000,
-          showIcon: true,
-          onScreen: true
-        }
-      });
-
-      this.setState({ show: false })
-    }
   }
 
   buildTableHeader() {
@@ -85,7 +85,7 @@ class Home extends Component {
   buildTableBody() {
     if(this.state.cards) {
       return this.state.cards.map(item => 
-        <tr className="text-center" key={item.id}>
+        <tr className="text-center" id={item._id}>
           <td className="p-1">
             <div className="foto">
               { this.buildImage(item.img) }
@@ -98,14 +98,14 @@ class Home extends Component {
           <td className="tableRow">{ item.danio }</td>
           <td className="tableRow">{ item.velocidad }</td>
           <td>
-            <button type="button" className="btn btn-outline-dark mr-1 mt-1" onClick={() => {window.location.href="/update/" + item.id }} >
+            <button type="button" className="btn btn-outline-dark mr-1 mt-1" onClick={() => {window.location.href="/update/" + item._id }} >
               <BiPencil className="mb-1"/>
             </button>
-            <button type="button" className="btn btn-outline-danger mr-1 mt-1" onClick={() => this.setState({ show: true, id: item.id })} >
+            <button type="button" className="btn btn-outline-danger mr-1 mt-1" onClick={() => this.setState({ show: true, id: item._id })} >
               <BiTrash className="mb-1"/>
             </button>
             <SweetAlert
-              id={item.id}
+              id={item._id}
               show={this.state.show}
               type="warning"
               title="¿Estás seguro de eliminar la carta?"
