@@ -1,6 +1,5 @@
 /* BOTONES */
 .btnlogin {
-  margin-top: 30px !important;
   background-color: #8A8045 !important;
   color: white !important;
 }
@@ -61,7 +60,7 @@
   background-color: white;
   border-radius: 10px;
   width: 380px;
-  height: 530px;
+  height: 560px;
 }
 
 .logoCard {
@@ -85,6 +84,11 @@ span {
   border-radius: 10px;
   width: 380px;
   height: 450px;
+}
+
+.error {
+  font-size: 14px;
+  color: crimson;
 }
 
 /* LAYOUT */
