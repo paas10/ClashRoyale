@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import SignUp from './components/SignUp';
 import Login from './components/Login';
 import ResetPassword from './components/ResetPassword';
 import Home from './components/Home';
@@ -20,6 +21,7 @@ ReactDOM.render(
   <Router>
     <ReactNotification />
     <Switch>
+      <Route exact path="/signup" component={SignUp}/>
       <Route exact path="/login" component={Login}/>
       <Route exact path="/reset" component={ResetPassword} />
 
