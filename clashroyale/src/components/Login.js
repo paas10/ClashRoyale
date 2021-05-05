@@ -4,7 +4,7 @@ import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import UserPool from '../UserPool';
 import 'crypto-js/lib-typedarrays';
 
-export default () => {
+const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   var emailError, passwordError;
@@ -129,5 +129,6 @@ export default () => {
       </div>
     </div>
   );
-
 }
+
+export default LogIn;
