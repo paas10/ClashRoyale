@@ -1,42 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AccountContext } from '../services/Accounts';
 import corona from "./../images/corona.png";
-import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-import UserPool from '../UserPool';
 import 'crypto-js/lib-typedarrays';
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   var emailError, passwordError;
+
+  const { authenticate } = useContext(AccountContext);
   
   const onSubmit = event => {
     event.preventDefault();
-
     if (!validateErrors(email, password)) return;
 
-    const user = new CognitoUser({
-      Username: email,
-      Pool: UserPool
-    });
-
-    const authDetails = new AuthenticationDetails({
-      Username: email,
-      Password: password
-    });
-
-    user.authenticateUser(authDetails, {
-      onSuccess: (data) => {
-        console.log('Success ', data)
-      },
-
-      onFailure: (error) => {
-        console.error('Fail ', error)
-      },
-
-      newPasswordRequired: (data) => {
-        console.log('Password Required ', data)
-      }
-    });
+    authenticate(email, password)
+      .then((data) => {
+        console.log('Logged In', data)
+      })
+      .catch((err) => {
+        console.error('ERROR', err)
+        var loginError = document.getElementById('loginError');
+        if (err.message === "Incorrect username or password.") {
+          loginError.innerHTML = 'Usuario o contraseña incorrecta.';
+          loginError.hidden = false;
+          resetForm();
+        } else {
+          loginError.innerHTML = err.message;
+          loginError.hidden = false;
+        }
+      })
   }
 
   function validateErrors() {
@@ -64,6 +57,11 @@ const LogIn = () => {
     }
   
     return true;
+  }
+
+  function resetForm() {
+    setEmail('')
+    setPassword('')
   }
 
   return (
@@ -95,7 +93,7 @@ const LogIn = () => {
             </div>
             <div className="row mt-1">
               <div className="col-12">
-                <input className="form-control" type="text" value={email} onChange={(event) => {setEmail(event.target.value); document.getElementById('emailError').hidden = true}} />
+                <input className="form-control" type="text" value={email} onChange={(event) => {setEmail(event.target.value); document.getElementById('emailError').hidden = true; document.getElementById('loginError').hidden = true;}} />
                 <span className="error" id="emailError" hidden></span>
               </div>
             </div>
@@ -106,7 +104,7 @@ const LogIn = () => {
             </div>
             <div className="row mt-1">
               <div className="col-12">
-                <input className="form-control" type="password" value={password} onChange={ (event) => {setPassword(event.target.value); document.getElementById('passwordError').hidden = true}} />
+                <input className="form-control" type="password" value={password} onChange={ (event) => {setPassword(event.target.value); document.getElementById('passwordError').hidden = true; document.getElementById('loginError').hidden = true}} />
                 <span className="error" id="passwordError" hidden></span>
               </div>
             </div>

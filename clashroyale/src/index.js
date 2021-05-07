@@ -9,6 +9,8 @@ import Home from './components/Home';
 import Create from './components/Create';
 import Update from './components/Update';
 
+import { Account } from './services/Accounts';
+
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 
@@ -18,19 +20,21 @@ import 'sweetalert/dist/sweetalert.css';
 import 'fontsource-roboto';
 
 ReactDOM.render(
-  <Router>
-    <ReactNotification />
-    <Switch>
-      <Route exact path="/signup" component={SignUp}/>
-      <Route exact path="/login" component={Login}/>
-      <Route exact path="/reset" component={ResetPassword} />
+  <Account>
+    <Router>
+      <ReactNotification />
+      <Switch>
+        <Route exact path="/signup" component={SignUp}/>
+        <Route exact path="/login" component={Login}/>
+        <Route exact path="/reset" component={ResetPassword} />
 
-      <Route exact path="/home" component={Home}/>
-      <Route exact path="/create" component={Create}/>
-      <Route exact path="/update/:id" component={Update}/>
-      <Route render={() => <Redirect to={{ pathname: "/login" }}/>} />
-    </Switch>
-  </Router>,
+        <Route exact path="/home" component={Home}/>
+        <Route exact path="/create" component={Create}/>
+        <Route exact path="/update/:id" component={Update}/>
+        <Route render={() => <Redirect to={{ pathname: "/login" }}/>} />
+      </Switch>
+    </Router>
+  </Account>,
 
   // <React.StrictMode>
   //   <App />
