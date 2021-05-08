@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import { AccountContext } from '../services/Accounts';
 import corona from "./../images/corona.png";
 import 'crypto-js/lib-typedarrays';
@@ -8,8 +9,18 @@ const LogIn = () => {
   const [password, setPassword] = useState('');
   var emailError, passwordError;
 
-  const { authenticate } = useContext(AccountContext);
+  const { authenticate, getSession } = useContext(AccountContext);
+  const history = useHistory();
+
+  // Validation of session state for autologin
+  useEffect(() => {
+    getSession().then((session) => {
+      console.log('Sesión Activa', session)
+      history.push("/home");
+    }).catch(() => {})
+  });
   
+  // Sents the request to login to Amazon Cognito
   const onSubmit = event => {
     event.preventDefault();
     if (!validateErrors(email, password)) return;
@@ -17,6 +28,7 @@ const LogIn = () => {
     authenticate(email, password)
       .then((data) => {
         console.log('Logged In', data)
+        history.push("/home");
       })
       .catch((err) => {
         console.error('ERROR', err)

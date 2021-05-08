@@ -10,13 +10,23 @@ const Account = props => {
   // Función que valida si un usuario se encuentra logeado
   const getSession = async () => 
     await new Promise ((resolve, reject) => {
-      const user = Pool.getCurrentUser();      
+      const user = Pool.getCurrentUser();
       if (user) {
         user.getSession((err, session) => {
           if (err) {
             reject(err)
           } else {
-            resolve(session)
+            var date = new Date(session.accessToken.payload.exp * 1000);
+            var currentDate = new Date();
+
+            // console.log('DATE ', date)
+            // console.log('CURRENT DATE ', currentDate)
+
+            if (date >= currentDate) {
+              resolve(session);
+            } else {
+              reject()
+            }
           }
         })
       } else {
