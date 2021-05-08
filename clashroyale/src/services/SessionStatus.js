@@ -17,4 +17,9 @@ const SessionStatus = () => {
   return ('');
 };
 
-export { SessionStatus };
+const LogOut = () => {
+  const { logout } = useContext(AccountContext);
+  logout();
+}
+
+export { SessionStatus, LogOut };

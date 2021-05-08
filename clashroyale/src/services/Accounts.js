@@ -43,8 +43,16 @@ const Account = props => {
       });
     });
 
+  // Función que realiza el proceso de cierre de sesión
+  const logout = () => {
+    const user = Pool.getCurrentUser()
+    if (user) {
+      user.signOut()
+    }
+  }
+
   return(
-    <AccountContext.Provider value={{ authenticate, getSession }}>
+    <AccountContext.Provider value={{ authenticate, getSession, logout }}>
       {props.children}
     </AccountContext.Provider>
   )
