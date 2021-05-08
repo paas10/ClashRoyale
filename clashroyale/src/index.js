@@ -10,6 +10,7 @@ import Create from './components/Create';
 import Update from './components/Update';
 
 import { Account } from './services/Accounts';
+import { SessionStatus } from './services/SessionStatus';
 
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
@@ -21,6 +22,7 @@ import 'fontsource-roboto';
 
 ReactDOM.render(
   <Account>
+    <SessionStatus />
     <Router>
       <ReactNotification />
       <Switch>

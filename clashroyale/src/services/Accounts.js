@@ -6,6 +6,25 @@ import 'crypto-js/lib-typedarrays';
 const AccountContext = createContext();
 
 const Account = props => {
+
+  // Función que valida si un usuario se encuentra logeado
+  const getSession = async () => 
+    await new Promise ((resolve, reject) => {
+      const user = Pool.getCurrentUser();      
+      if (user) {
+        user.getSession((err, session) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(session)
+          }
+        })
+      } else {
+        reject()
+      }
+    });
+
+  // Función que realiza el proceso de Login directamente con Cognito
   const authenticate = async (Username, Password) => 
     await new Promise((resolve, reject) => {
       const user = new CognitoUser({ Username, Pool });
@@ -25,7 +44,7 @@ const Account = props => {
     });
 
   return(
-    <AccountContext.Provider value={{authenticate}}>
+    <AccountContext.Provider value={{ authenticate, getSession }}>
       {props.children}
     </AccountContext.Provider>
   )
