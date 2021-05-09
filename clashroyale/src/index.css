@@ -158,6 +158,10 @@ h3 {
   margin-right: 3px;
 }
 
+.rdt_TableHeader {
+  display: none !important;
+}
+
 .bodyTable {
   margin-top: 30px;
   padding: 35px 15px;
@@ -174,10 +178,6 @@ h3 {
 
 .tableRow {
   padding-top: 18px !important;
-}
-
-.imgIndex {
-  max-height: 100%;
 }
 
 /* CREATE Y UPDATE */
