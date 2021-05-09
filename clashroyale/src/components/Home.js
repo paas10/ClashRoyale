@@ -85,7 +85,7 @@ class Home extends Component {
   buildTableBody() {
     if(this.state.cards) {
       return this.state.cards.map(item => 
-        <tr className="text-center" id={item._id}>
+        <tr className="text-center" key={item._id} id={item._id}>
           <td className="p-1">
             <div className="foto">
               { this.buildImage(item.img) }
