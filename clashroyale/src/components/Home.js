@@ -156,23 +156,26 @@ class Home extends Component {
         </div>
         
         {/* CUERPO DE LA TABLA */}
-        <div className="row bodyTable">
-          <div className="col-12">
+        <div>
+          <div className="row bodyTable">
+            <div className="col-12">
 
-            <div className="table-responsive">
-              <table className="table">
-                <thead>
-                  <tr>
-                    { this.buildTableHeader() }
-                  </tr>
-                </thead>
-                <tbody>
-                  { this.buildTableBody() }
-                </tbody>
-              </table>
+              <div className="table-responsive">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      { this.buildTableHeader() }
+                    </tr>
+                  </thead>
+                  <tbody>
+                    { this.buildTableBody() }
+                  </tbody>
+                </table>
+              </div>
+
             </div>
-
           </div>
+          &nbsp;
         </div>
       </Layout>
     );
