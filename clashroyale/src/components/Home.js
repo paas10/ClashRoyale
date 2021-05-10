@@ -5,8 +5,11 @@ import { IoMdAdd } from "react-icons/io";
 import { BiPencil, BiTrash } from "react-icons/bi";
 import { store } from 'react-notifications-component';
 import { environment } from './../environments/environment'
-
 import DataTable from 'react-data-table-component';
+
+import { css } from "@emotion/core";
+import PacmanLoader from "react-spinners/PacmanLoader";
+
 
 const header = [
   {
@@ -52,6 +55,11 @@ const header = [
     minWidth: '200'
   }
 ];
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 class Home extends Component {
 
   constructor(props) {
@@ -61,7 +69,8 @@ class Home extends Component {
     this.state = {
       cards: [],
       show: false,
-      reload: true
+      reload: true,
+      loading: true
     };
   }
 
@@ -88,7 +97,7 @@ class Home extends Component {
           }
         })
 
-        this.setState({ cards: cartas })
+        this.setState({ cards: cartas, loading: false })
       });
   }
 
@@ -257,6 +266,10 @@ class Home extends Component {
           </div>
         </div>
         
+        <div className="sweet-loading">
+          <PacmanLoader color={this.state.color} loading={this.state.loading} css={override} size={30} />
+        </div>
+
         {/* CUERPO DE LA TABLA */}
         <div>
           <div className="row bodyTable">
