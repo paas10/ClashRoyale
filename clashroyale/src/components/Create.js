@@ -129,7 +129,7 @@ class Create extends Component {
             {/* <form id="createForm" className="form-horizontal" encType="multipart/form-data" autoComplete="off" >  method="POST" */}
               {/* Nombre */}
               <div className="row justify-content-center mt-4">
-                <div className="col-12 cols-sm-2 col-form-label">
+                <div className="col-12 col-sm-2   col-form-label">
                   <span>Nombre</span>
                 </div>
                 <div className="col-10 col-md-6">
@@ -139,7 +139,7 @@ class Create extends Component {
 
               {/* Ruta Imagen */}
               <div className="row justify-content-center mt-3">
-                <div className="col-12 cols-sm-2 col-form-label">
+                <div className="col-12 col-sm-2  col-form-label">
                   <span>Imagen (URL)</span>
                 </div>
                 <div className="col-10 col-md-6">
@@ -149,7 +149,7 @@ class Create extends Component {
 
               {/* Calidad */}
               <div className="row justify-content-center mt-3">
-                <div className="col-12 cols-sm-2 col-form-label">
+                <div className="col-12 col-sm-2  col-form-label">
                   <span>Calidad</span>
                 </div>
                 <div className="col-10 col-md-6">
@@ -164,7 +164,7 @@ class Create extends Component {
 
               {/* Tipo de Carta */}
               <div className="row justify-content-center mt-3">
-                <div className="col-12 cols-sm-2 col-form-label">
+                <div className="col-12 col-sm-2  col-form-label">
                   <span>Tipo de Carta</span>
                 </div>
                 <div className="col-10 col-md-6">
@@ -178,7 +178,7 @@ class Create extends Component {
 
               {/* Vida */}
               <div className="row justify-content-center mt-3">
-                <div className="col-12 cols-sm-2 col-form-label">
+                <div className="col-12 col-sm-2  col-form-label">
                   <span>Vida</span>
                 </div>
                 <div className="col-10 col-md-6">
@@ -188,7 +188,7 @@ class Create extends Component {
 
               {/* Daño */}
               <div className="row justify-content-center mt-3">
-                <div className="col-12 cols-sm-2 col-form-label">
+                <div className="col-12 col-sm-2  col-form-label">
                   <span>Daño</span>
                 </div>
                 <div className="col-10 col-md-6">
@@ -198,7 +198,7 @@ class Create extends Component {
 
               {/* Velocidad */}
               <div className="row justify-content-center mt-3">
-                <div className="col-12 cols-sm-2 col-form-label">
+                <div className="col-12 col-sm-2  col-form-label">
                   <span>Velocidad</span>
                 </div>
                 <div className="col-10 col-md-6">
