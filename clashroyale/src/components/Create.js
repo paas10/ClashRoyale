@@ -102,14 +102,14 @@ class Create extends Component {
       <Layout>
         {/* ENCABEZADO DE LA VISTA */}
         <div className="row">
-          <div className="col-10">
+          <div className="col-8 col-sm-10">
             <span className="rutas">CARTAS / NUEVA CARTA</span>
             <h3 className="mb-0">
               <b>NUEVA CARTA</b>
             </h3>
             {/* <span>Crea una carta</span> */}
           </div>
-          <div className="text-right col-2">
+          <div className="text-right col-4 col-sm-2">
             <button type="button" className="btn btn-outline-dark mt-3 mr-2 btnRegresar" onClick={() => {window.location.href="/home"}}>
               <BiArrowBack className="icoAdd" />
               <span className="btnColor">Regresar</span>
@@ -129,30 +129,30 @@ class Create extends Component {
             {/* <form id="createForm" className="form-horizontal" encType="multipart/form-data" autoComplete="off" >  method="POST" */}
               {/* Nombre */}
               <div className="row justify-content-center mt-4">
-                <div className="col-2 col-form-label">
+                <div className="col-12 cols-sm-2 col-form-label">
                   <span>Nombre</span>
                 </div>
-                <div className="col-6">
+                <div className="col-10 col-md-6">
                   <input className="form-control" type="text" id="name" name="name" />
                 </div>
               </div>
 
               {/* Ruta Imagen */}
               <div className="row justify-content-center mt-3">
-                <div className="col-2 col-form-label">
+                <div className="col-12 cols-sm-2 col-form-label">
                   <span>Imagen (URL)</span>
                 </div>
-                <div className="col-6">
+                <div className="col-10 col-md-6">
                   <input className="form-control" type="text" id="urlImg" name="urlImg" onChange={this.buildImage} />
                 </div>
               </div>
 
               {/* Calidad */}
               <div className="row justify-content-center mt-3">
-                <div className="col-2 col-form-label">
+                <div className="col-12 cols-sm-2 col-form-label">
                   <span>Calidad</span>
                 </div>
-                <div className="col-6">
+                <div className="col-10 col-md-6">
                   <select className="selectpicker form-control" type="text" id="quality" name="quality">
                     <option value="1">Común</option>
                     <option value="2">Especial</option>
@@ -164,10 +164,10 @@ class Create extends Component {
 
               {/* Tipo de Carta */}
               <div className="row justify-content-center mt-3">
-                <div className="col-2 col-form-label">
+                <div className="col-12 cols-sm-2 col-form-label">
                   <span>Tipo de Carta</span>
                 </div>
-                <div className="col-6">
+                <div className="col-10 col-md-6">
                 <select className="selectpicker form-control" type="text" id="typeCard" name="typeCard">
                     <option value="1">Tropa</option>
                     <option value="2">Hechizo</option>
@@ -178,30 +178,30 @@ class Create extends Component {
 
               {/* Vida */}
               <div className="row justify-content-center mt-3">
-                <div className="col-2 col-form-label">
+                <div className="col-12 cols-sm-2 col-form-label">
                   <span>Vida</span>
                 </div>
-                <div className="col-6">
+                <div className="col-10 col-md-6">
                   <input className="form-control" type="number" id="health" name="health" step="1" min="0" />
                 </div>
               </div>
 
               {/* Daño */}
               <div className="row justify-content-center mt-3">
-                <div className="col-2 col-form-label">
+                <div className="col-12 cols-sm-2 col-form-label">
                   <span>Daño</span>
                 </div>
-                <div className="col-6">
+                <div className="col-10 col-md-6">
                   <input className="form-control" type="number" id="damage" name="damage" step="1" min="0" />
                 </div>
               </div>
 
               {/* Velocidad */}
               <div className="row justify-content-center mt-3">
-                <div className="col-2 col-form-label">
+                <div className="col-12 cols-sm-2 col-form-label">
                   <span>Velocidad</span>
                 </div>
-                <div className="col-6">
+                <div className="col-10 col-md-6">
                   <select className="selectpicker form-control" type="text" id="velocity" name="velocity">
                     <option value="-1"></option>
                     <option value="1">Baja</option>

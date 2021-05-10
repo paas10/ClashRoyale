@@ -48,7 +48,8 @@ const header = [
     name: 'Acciones',
     selector: 'acciones',
     sortable: true,
-    center: true
+    center: true,
+    minWidth: '200'
   }
 ];
 class Home extends Component {
@@ -71,6 +72,8 @@ class Home extends Component {
       headers: { 'Content-Type': 'application/json' }
     }).then(res => res.json())
       .then(data => {
+        // console.log(data)
+
         var cartas = data.map(row => {
           return {
             id: row._id,
@@ -85,7 +88,6 @@ class Home extends Component {
           }
         })
 
-        // console.log(cartas)
         this.setState({ cards: cartas })
       });
   }
@@ -240,14 +242,14 @@ class Home extends Component {
       <Layout>
         {/* ENCABEZADO DE LA VISTA */}
         <div className="row">
-          <div className="col-10">
+          <div className="col-8 col-sm-10">
             <span className="rutas">CARTAS</span>
             <h3 className="mb-0">
               <b>CARTAS</b>
             </h3>
             {/* <span>Cartas disponibles en la plataforma</span> */}
           </div>
-          <div className="text-right col-2">
+          <div className="text-right col-4 col-sm-2">
             <button type="button" className="btn btn-outline-success mt-3 mr-2" onClick={() => {window.location.href="/create"}}>
               <IoMdAdd className="icoAdd" />
               <span className="btnColor">Nuevo</span>
