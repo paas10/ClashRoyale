@@ -48,10 +48,9 @@ class Create extends Component {
   }
 
   buildImage(event) {
-    if(document.getElementById("rutaImg").value) {
+    if(document.getElementById("urlImg").value) {
       document.getElementById("placeImgUpdate").style.display = "initial";
-      this.setState({ rutaImagen: document.getElementById("rutaImg").value })
-      ReactDOM.render(<img className="imgIndex" src={this.state.rutaImagen} alt="La ruta de la imagen es inválida" />, document.getElementById("placeImgUpdate"))
+      ReactDOM.render(<img className="imgIndex" src={document.getElementById("urlImg").value} alt="La ruta de la imagen es inválida" />, document.getElementById("placeImgUpdate"))
     } else {
       document.getElementById("placeImgUpdate").style.display = "none";
     }
